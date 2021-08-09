@@ -1,0 +1,52 @@
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="linea">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Línea</th>
+    <td mat-cell *matCellDef="let costop">{{costop.linea}}</td>
+  </ng-container>
+  <ng-container matColumnDef="marca">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
+    <td mat-cell *matCellDef="let costop">{{costop.marca}}</td>
+  </ng-container>
+  <ng-container matColumnDef="clase">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Clase</th>
+    <td mat-cell *matCellDef="let costop">{{costop.clase}}</td>
+  </ng-container>
+  <ng-container matColumnDef="clave">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Producto</th>
+    <td mat-cell *matCellDef="let costop">{{costop.clave}}</td>
+  </ng-container>
+  <ng-container matColumnDef="descripcion">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+    <td mat-cell *matCellDef="let costop">{{costop.descripcion}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="modificado">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Actualizado</th>
+    <td mat-cell *matCellDef="let costop">{{costop.lastUpdated | date: 'dd/MM/yyyy HH:mm'}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="costoAnterior">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Costo anterior</th>
+    <td mat-cell *matCellDef="let costop">{{costop.costoAnterior | currency}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="costo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Costo</th>
+    <td mat-cell *matCellDef="let costop">{{costop.costo | currency}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="diferencia">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Diferencia</th>
+    <td mat-cell *matCellDef="let costop">{{costop.diferencia | percent: '1.2-2'}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let costop; columns: displayColumns" class="cursor-pointer" (click)="select.emit(costop)"
+    [ngClass]="{'active': costop.id === selectedId}">
+  </tr>
+</table>
+<mat-paginator 
+  [pageSizeOptions]="[10, 20, 100, 500, 1000, 3000, 5000]"
+  [pageSize]="20"
+  showFirstLastButtons></mat-paginator>

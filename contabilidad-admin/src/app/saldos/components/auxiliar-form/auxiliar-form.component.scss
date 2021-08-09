@@ -1,0 +1,37 @@
+.auxiliar-form {
+  display: flex;
+  padding: 10px;
+
+  .cuentas {
+    display: flex;
+    flex-direction: column;
+    // flex: 3 1 auto;
+    flex-grow: 5;
+    justify-content: flex-start;
+    padding: 0px 5px;
+    // border: 1px solid green;
+    sx-cuenta-contable-field {
+      flex: 1 1 auto;
+    }
+
+    .cuenta-inicial {
+      padding-right: 5px;
+    }
+    .cuenta-final {
+      margin-top: -10px;
+    }
+  }
+
+  .periodo {
+    display: flex;
+    flex-grow: 2;
+    flex-direction: column;
+  }
+
+  .actions {
+    flex-direction: column;
+    justify-content: flex-end;
+    flex-grow: 1;
+  }
+
+}

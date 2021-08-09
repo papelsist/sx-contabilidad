@@ -1,0 +1,34 @@
+<mat-card>
+  <ng-template
+    tdLoading
+    [tdLoadingUntil]="!(loading$ | async)"
+    tdLoadingStrategy="overlay"
+  >
+    <sx-search-title
+      title="Resumen de activos"
+      (search)="grid.gridApi.setQuickFilter($event)"
+    >
+      <sx-ejercicio-mes-btn
+        class="info"
+        (change)="onPeriodoChange($event)"
+        [periodo]="periodo"
+      ></sx-ejercicio-mes-btn>
+      <button class="actions" mat-menu-item (click)="reload()">
+        <mat-icon>refresh</mat-icon> Recargar
+      </button>
+
+      <button
+        class="actions"
+        mat-menu-item
+        (click)="grid.exportData()"
+        matTooltip="Descargar registros en formato CSV"
+      >
+        <mat-icon color="primary">file_download</mat-icon> Descargar
+      </button>
+    </sx-search-title>
+  </ng-template>
+  <mat-divider></mat-divider>
+  <div class="grid-panel">
+    <sx-resumen-table #grid [activos]="registros$ | async"></sx-resumen-table>
+  </div>
+</mat-card>

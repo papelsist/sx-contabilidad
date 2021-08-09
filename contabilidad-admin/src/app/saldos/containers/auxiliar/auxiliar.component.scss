@@ -1,0 +1,16 @@
+.mat-card {
+  width: calc(100% - 15px);
+  height: calc(100% - 75px);
+  // height: 350px;
+}
+.saldos-panel {
+  height: 600px;
+}
+.totales-panel {
+  font-weight: bold;
+  label {
+    margin: 0 10px;
+  }
+}
+
+

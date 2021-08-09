@@ -1,0 +1,24 @@
+<mat-card>
+  <ng-template
+    tdLoading
+    [tdLoadingUntil]="!(loading$ | async)"
+    tdLoadingStrategy="overlay"
+  >
+    <sx-search-title title="Registro de activos">
+      <button class="actions" mat-menu-item (click)="onCreate()">
+        <mat-icon>add</mat-icon> Alta
+      </button>
+      <button class="actions" mat-menu-item (click)="reload()">
+        <mat-icon>refresh</mat-icon> Recargar
+      </button>
+    </sx-search-title>
+  </ng-template>
+  <mat-divider></mat-divider>
+  <div class="grid-panel">
+    <sx-inpcs-table
+      [inpcs]="inpcs$ | async"
+      (select)="onSelect($event)"
+      (delete)="onDelete($event)"
+    ></sx-inpcs-table>
+  </div>
+</mat-card>

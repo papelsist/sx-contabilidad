@@ -1,0 +1,32 @@
+<mat-card>
+  <ng-template
+    tdLoading
+    [tdLoadingUntil]="!(loading$ | async)"
+    tdLoadingStrategy="overlay"
+  >
+    <sx-search-title title="Comisiones de tarjeta" (search)="onSearch($event)">
+      <div class="pad-left info">
+        <span
+          class="pad-left pad-right cursor-pointer"
+          (click)="cambiarPeriodo(periodo)"
+          >{{ periodo }}</span
+        >
+      </div>
+
+      <button mat-menu-item (click)="reload(periodo)" class="actions">
+        <mat-icon>refresh</mat-icon> Recargar
+      </button>
+    </sx-search-title>
+    <mat-divider></mat-divider>
+
+    <sx-aplicaciones-table
+      [aplicaciones]="aplicaciones$ | async"
+      (select)="onSelect($event)"
+      (edit)="onEdit($event)"
+      [filter]="search"
+    >
+    </sx-aplicaciones-table>
+
+    <mat-card-actions> </mat-card-actions>
+  </ng-template>
+</mat-card>

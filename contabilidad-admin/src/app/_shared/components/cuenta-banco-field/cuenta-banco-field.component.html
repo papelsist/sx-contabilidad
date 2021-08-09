@@ -1,0 +1,19 @@
+<mat-form-field  class="fill">
+  <input type="text" matInput [formControl]="searchControl" (blur)="onBlur()"
+      [placeholder]="placeholder" #inputField
+      [required]="required"
+      [matAutocomplete]="auto"
+      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <mat-icon matSuffix>account_balance_wallet</mat-icon>
+  <mat-error>
+    Seleccione una cuenta
+  </mat-error>
+</mat-form-field>
+
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="select($event)">
+  <mat-option *ngFor="let cuenta of cuentas$ | async " [value]="cuenta">
+      {{cuenta.descripcion}} {{(cuenta.numero)}}
+  </mat-option>
+</mat-autocomplete>
+  
+  

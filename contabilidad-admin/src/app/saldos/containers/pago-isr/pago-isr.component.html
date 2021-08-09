@@ -1,0 +1,29 @@
+<mat-card>
+  <sx-search-title title="Pago provisional del ISR    2018" *ngIf="periodo">
+    <button
+      class="options"
+      mat-button
+      mat-icon-button
+      (click)="grid.exportData()"
+      matTooltip="Exportar a CSV"
+    >
+      <mat-icon color="primary">file_download</mat-icon>
+    </button>
+    <button mat-menu-item class="actions" (click)="reload(periodo)">
+      <mat-icon>refresh</mat-icon> RE CARGAR
+    </button>
+    <button mat-menu-item class="actions" (click)="onGenerar(periodo)">
+      <mat-icon>settings</mat-icon> GENERAR
+    </button>
+  </sx-search-title>
+  <mat-divider></mat-divider>
+  <ng-template
+    tdLoading
+    [tdLoadingUntil]="!(loading$ | async)"
+    tdLoadingStrategy="overlay"
+  >
+  </ng-template>
+  <div class="grid-panel" flex>
+    <sx-pago-isr-table [partidas]="rows$ | async" #grid></sx-pago-isr-table>
+  </div>
+</mat-card>

@@ -1,0 +1,53 @@
+<mat-card>
+  <ng-template
+    tdLoading
+    [tdLoadingUntil]="!(loading$ | async)"
+    tdLoadingStrategy="overlay"
+  >
+    <sx-search-title
+      *ngIf="(filter$ | async) as filter"
+      title="FICHAS DE DEPSITO: {{ filter.tipo }}"
+      (search)="onSearch($event)"
+    >
+      <div class="pad-left info">
+        <span>Cartera:</span>
+        <span class="pad-left pad-right">{{ getTipo(filter) }}</span>
+        <!-- <span>Sucursal:</span>
+        <span class="pad-left pad-right">{{ getSucursal(filter) }}</span>
+        <span>Fecha:</span> -->
+        <span class="pad-left pad-right">{{
+          filter.fecha | date: 'dd/MM/yyyy'
+        }}</span>
+      </div>
+
+      <sx-fichas-filter-btn
+        class="options"
+        [filter]="filter"
+        (change)="onFilterChange($event)"
+      ></sx-fichas-filter-btn>
+
+      <button mat-menu-item (click)="reload()" class="actions">
+        <mat-icon>refresh</mat-icon> Recargar
+      </button>
+
+      <button
+        mat-menu-item
+        class="actions"
+        (click)="reporteDeRelacionDeFichas(filter)"
+        *ngIf="(filter$ | async) as filter"
+      >
+        <mat-icon matListAvatar>insert_chart</mat-icon> Relación de fichas
+      </button>
+    </sx-search-title>
+    <mat-divider></mat-divider>
+
+    <sx-fichas-table
+      [fichas]="fichas$ | async"
+      (select)="onSelect($event)"
+      (edit)="onEdit($event)"
+      [filter]="search"
+    >
+    </sx-fichas-table>
+    <mat-card-actions> </mat-card-actions>
+  </ng-template>
+</mat-card>

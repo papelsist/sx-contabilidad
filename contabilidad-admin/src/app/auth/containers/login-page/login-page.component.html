@@ -1,0 +1,68 @@
+<td-layout-nav navigationRoute="/" color="primary">
+  <div td-toolbar-content layout="row" layout-align="start center" flex>
+    <span class="cursor-pointer">SIIPAPX CONTABILIDAD</span>
+    <span flex></span>
+  </div>
+
+  <div layout="row" layout-align="center">
+    <form flex-gt-sm="30" (ngSubmit)="login()" [formGroup]="form">
+      <ng-template
+        tdLoading
+        [tdLoadingUntil]="!(loading$ | async)"
+        tdLoadingStrategy="overlay"
+      >
+        <mat-card>
+          <mat-card-title>Acceso al sistema</mat-card-title>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <div layout="column">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Usuario"
+                  autocomplete="off"
+                  formControlName="username"
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Passwor"
+                  autocomplete="off"
+                  type="password"
+                  formControlName="password"
+                />
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-raised-button color="primary" [disabled]="form.invalid">
+              <mat-icon>power_settings_new</mat-icon> Accesar
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </ng-template>
+    </form>
+  </div>
+  <div>
+    <pre *ngIf="(error$ | async) as error">
+      <span>{{error.status}} </span>
+      <span>{{error.statusText}} </span>
+      <span>{{error.name}} </span>
+      <span>{{error.message}} </span>
+      <span>{{error.error | json }} </span>
+
+    </pre>
+  </div>
+
+  <!--
+  <td-layout-footer>
+    <div layout="row" layout-align="start center">
+      <span class="md-caption">Copyright &copy; 2018 Luxsoft Mx. All rights reserved</span>
+    </div>
+  </td-layout-footer>
+  -->
+  <td-layout-footer>
+    <sx-footer></sx-footer>
+  </td-layout-footer>
+</td-layout-nav>

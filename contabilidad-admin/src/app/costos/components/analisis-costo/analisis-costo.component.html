@@ -1,0 +1,11 @@
+<mat-card>
+  <div layout layout-align="start center" class="pad-left-sm pad-right-sm">
+    <span class="push-left-sm">
+      <span class="mat-title">Análisis de costo para: {{costo.descripcion}} ({{costo.clave}})</span>
+    </span>
+    <span flex></span>
+    <button mat-icon-button (click)="close.emit($event)">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</mat-card>

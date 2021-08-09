@@ -1,0 +1,18 @@
+<mat-form-field  class="fill">
+  <input type="text" matInput [formControl]="searchControl" (blur)="onBlur()"
+      [placeholder]="placeholder" #inputField
+      [required]="required"
+      [matAutocomplete]="auto"
+      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <mat-icon matSuffix>arrow_drop_down</mat-icon>
+  <mat-error>
+    Seleccione un banco
+  </mat-error>
+</mat-form-field>
+
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="select($event)">
+  <mat-option *ngFor="let banco of bancos$ | async " [value]="banco">
+      {{banco.nombre}}
+  </mat-option>
+</mat-autocomplete>
+

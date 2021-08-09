@@ -1,0 +1,75 @@
+<table
+  mat-table
+  [dataSource]="dataSource"
+  matSort
+  multiTemplateDataRows
+  class="mat-elevation-z8"
+>
+  <ng-container matColumnDef="sucursal">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sucursal</th>
+    <td mat-cell *matCellDef="let row">{{ row.sucursal }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="folio">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Corte</th>
+    <td mat-cell *matCellDef="let row">{{ row.folio }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="tipo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+    <td mat-cell *matCellDef="let row">{{ row.tipo }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="fecha">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+    <td mat-cell *matCellDef="let row">{{ row.fecha | date: 'dd/MM/yyyy' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="importe">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Importe</th>
+    <td mat-cell *matCellDef="let row">{{ row.importe | currency }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="usuario">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+    <td mat-cell *matCellDef="let row">{{ row.usuario }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="modificado">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Modificado</th>
+    <td mat-cell *matCellDef="let row">
+      {{ row.modificado | date: 'dd/MM/yyyy : HH:mm' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="operaciones">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>...</th>
+    <td mat-cell *matCellDef="let row">
+      <mat-icon (click)="doEdit($event, row)" *ngIf="isIngreso(row) && row.tipo === 'AMEX_INGRESO'"
+        >today</mat-icon>
+      <mat-icon (click)="doEdit($event, row)" *ngIf="isEditable(row)"
+        >edit</mat-icon
+      >
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="fechaDeposito">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Deposito</th>
+    <td mat-cell *matCellDef="let row">
+      {{ row.fechaDeposito | date: 'dd/MM/yyyy' }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayColumns"
+    class="cursor-pointer"
+    (click)="select.emit(row)"
+  ></tr>
+</table>
+
+<mat-paginator
+  [pageSizeOptions]="[50, 100, 200]"
+  showFirstLastButtons
+></mat-paginator>

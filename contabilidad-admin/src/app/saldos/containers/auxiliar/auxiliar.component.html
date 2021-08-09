@@ -1,0 +1,63 @@
+<div layout="column">
+  <mat-card flex>
+    <div layout layout-align="start center" class="pad">
+      <div class="mat-title" layour>
+        <span class="pad-right">Auxiliar contable</span>
+        <ng-container *ngIf="cuentaInicial">
+          <span class="pad-left">De la Cuenta: {{ cuentaInicial }}</span>
+          <span class="pad-left">A la: {{ cuentaFinal }}</span>
+        </ng-container>
+      </div>
+      <span flex></span>
+      <div layout>
+        <span>Periodo: {{ periodo }}</span>
+      </div>
+      <span flex></span>
+      <button
+        mat-button
+        mat-icon-button
+        matTooltip="Genera auxiliar"
+        (click)="generar()"
+      >
+        <mat-icon color="accent">play_for_work</mat-icon>
+      </button>
+      <button
+        mat-button
+        mat-icon-button
+        (click)="grid.exportData()"
+        matTooltip="Exportar a CSV"
+      >
+        <mat-icon color="primary">file_download</mat-icon>
+      </button>
+
+      <span>
+        <button mat-icon-button [matMenuTriggerFor]="toolbarMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #toolbarMenu="matMenu">
+          <button mat-menu-item class="actions" (click)="reload()">
+            <mat-icon>refresh</mat-icon> Recargar
+          </button>
+          <button mat-menu-item class="actuibs" (click)="printAuxiliar()">
+            <mat-icon>print</mat-icon> Imprimir
+          </button>
+        </mat-menu>
+      </span>
+    </div>
+
+    <mat-divider></mat-divider>
+    <ng-template
+      tdLoading
+      [tdLoadingUntil]="!(loading$ | async)"
+      tdLoadingStrategy="overlay"
+    >
+    </ng-template>
+    <div class="movimientos-panel">
+      <sx-auxiliar-table
+        [partidas]="movimientos$ | async"
+        (totalesChanged)="onTotales($event)"
+        #grid
+      ></sx-auxiliar-table>
+    </div>
+  </mat-card>
+</div>

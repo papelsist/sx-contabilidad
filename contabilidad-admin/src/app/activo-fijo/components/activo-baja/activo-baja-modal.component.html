@@ -1,0 +1,75 @@
+<form [formGroup]="form" novalidate (ngSubmit)="doAccept()">
+  <h4 mat-dialog-title>Baja de activo: {{ activo.descripcion }}</h4>
+  <mat-dialog-content>
+    <div></div>
+    <div layout>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="myDatepicker"
+          placeholder="Fecha"
+          formControlName="fecha"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="myDatepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="pad-left">
+        <input
+          matInput
+          placeholder="Factura Serie"
+          formControlName="facturaSerie"
+          autocomplete="off"
+        />
+      </mat-form-field>
+      <mat-form-field class="pad-left">
+        <input
+          matInput
+          placeholder="Factura folio"
+          formControlName="facturaFolio"
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+    <div layout>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="myDatepicker2"
+          placeholder="Fecha factura"
+          formControlName="fechaFactura"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="myDatepicker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker2></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="pad-left">
+        <input
+          matInput
+          placeholder="Importe venta"
+          formControlName="importeDeVenta"
+          autocomplete="off"
+          type="number"
+        />
+      </mat-form-field>
+      <sx-upper-case-field
+        flex
+        class="pad-left"
+        placeholder="Comentario"
+        formControlName="comentario"
+      ></sx-upper-case-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button color="accent" type="submit" [disabled]="form.invalid">
+      Aceptar
+    </button>
+    <button mat-button type="button" (click)="close()">Cancelar</button>
+  </mat-dialog-actions>
+</form>

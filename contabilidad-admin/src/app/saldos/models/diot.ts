@@ -1,0 +1,32 @@
+export interface Diot {
+  id: number;
+  ejercicio: number;
+  mes: number;
+  proveedor: string;
+  tipoTercero: string;
+  tipoOperacion: string;
+  rfc: string;
+  idFiscal: string;
+  nombreExtranjero: string;
+  paisResidencia: string;
+  nacionalidad: string;
+  pagos1516: number;
+  pagos15: number;
+  ivaPagado1516: number;
+  pagos1011: number;
+  pagos10: number;
+  pagosFrontera: number;
+  ivaPagado1011: number;
+  ivaPagadoFrontera: number;
+  pagosImportacion: number;
+  ivaPagadoImportacion1516: number;
+  pagosImportacion1011: number;
+  ivaPagadoImportacion1011: number;
+  pagosImportacionSinIva: number;
+  pagosTasa0: number;
+  pagosSinIva: number;
+  ivaRetenidoContribuyente: number;
+  ivaNotas: number;
+  ivaAcreditable: number;
+  ivaAnticipo: number;
+}

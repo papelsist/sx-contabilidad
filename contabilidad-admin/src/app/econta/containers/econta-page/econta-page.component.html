@@ -1,0 +1,41 @@
+<td-layout-nav-list
+  #navList
+  [opened]="media.registerQuery('gt-sm') | async"
+  [mode]="(media.registerQuery('gt-sm') | async) ? 'side' : 'over'"
+  [sidenavWidth]="(media.registerQuery('gt-xs') | async) ? '315px' : '100%'"
+>
+  <div td-sidenav-toolbar-content layout="row" layout-align="start center">
+    <button mat-icon-button tdLayoutToggle><mat-icon>menu</mat-icon></button>
+    <span [routerLink]="['/']" class="cursor-pointer">SX CONTABILIDAD</span>
+  </div>
+  <div td-toolbar-content layout="row" layout-align="start center" flex>
+    <button mat-icon-button tdLayoutNavListOpen [hideWhenOpened]="true">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span tdLayoutNavListToggle class="cursor-pointer">
+      <span>CONTABILIDAD ELCTRONICA (SAT)</span>
+    </span>
+    <span flex></span>
+  </div>
+
+  <mat-nav-list
+    dense
+    td-sidenav-content
+    [tdLayoutNavListClose]="!media.query('gt-sm')"
+  >
+    <ng-template let-item let-last="last" ngFor [ngForOf]="navmenu">
+      <a mat-list-item [routerLink]="[item.route]" routerLinkActive="active">
+        <mat-icon matListAvatar>{{ item.icon }}</mat-icon>
+        <h3 matLine>{{ item.title }}</h3>
+        <p matLine>{{ item.description }}</p>
+      </a>
+      <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+    </ng-template>
+    <mat-divider></mat-divider>
+
+    <h3 matSubheader>Reportes</h3>
+  </mat-nav-list>
+
+  <router-outlet></router-outlet>
+  <td-layout-footer> <sx-footer></sx-footer> </td-layout-footer>
+</td-layout-nav-list>

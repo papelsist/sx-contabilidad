@@ -1,0 +1,151 @@
+<form [formGroup]="form">
+  <mat-card>
+    <div layout class="pad-left pad-right pad-top mat-title">
+      <span>Póliza: {{ poliza?.folio }} {{ poliza.subtipo }} </span>
+      <span class="pad-left cursor-pointer" (click)="changeConcepto()"
+        >Concepto: {{ concepto }}</span
+      >
+      <span flex></span>
+
+      <span class="pad-left" *ngIf="poliza.cierre"
+        >Cerrada: {{ poliza.cierre | date: 'dd/MM/yyyy' }}</span
+      >
+      <span *ngIf="poliza.manual" class="tc-indigo-800 pad-left pad-right"
+        >POLIZA MANUAL</span
+      >
+      <button
+        mat-button
+        mat-icon-button
+        (click)="partidasGrid.exportData(poliza)"
+        matTooltip="Exportar a CSV"
+      >
+        <mat-icon color="primary">file_download</mat-icon>
+      </button>
+      <span>
+        <button mat-icon-button [matMenuTriggerFor]="toolbarMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #toolbarMenu="matMenu">
+          <button
+            (click)="actualizarManual(poliza)"
+            mat-menu-item
+            matTooltip="Hacer la poliza {{
+              poliza.manual ? 'Automática' : 'Manual'
+            }}"
+          >
+            <mat-icon>dialpad</mat-icon>
+            <span>{{ poliza.manual ? 'AUTOMÁTICA' : 'MANUAL' }}</span>
+          </button>
+
+          <!-- <button
+            (click)="mostrarComprobantes(poliza, 'NACIONALES')"
+            mat-menu-item
+          >
+            <mat-icon>laptop_mac</mat-icon>
+            <span> Comp. Nacionales</span>
+          </button> -->
+          <button
+            (click)="comprobantes.emit({ id: poliza.id, tipo: 'N' })"
+            mat-menu-item
+          >
+            <mat-icon>print</mat-icon><span> Comp. Nacionales </span>
+          </button>
+          <button
+            (click)="comprobantes.emit({ id: poliza.id, tipo: 'P' })"
+            mat-menu-item
+          >
+            <mat-icon>print</mat-icon><span> Comp. Pagos </span>
+          </button>
+        </mat-menu>
+      </span>
+    </div>
+    <div layout class="pad-left pad-right mat-subheading-2">
+      <span> Debe: {{ poliza.debe | currency }} </span>
+      <span class="pad-left"> Haber: {{ poliza.haber | currency }} </span>
+      <span class="pad-left">
+        Cuadre: {{ poliza.debe - poliza.haber | currency }}
+      </span>
+      <span flex></span>
+      <span class="pad-left"
+        >Fecha: {{ poliza.fecha | date: 'dd/MM/yyyy' }}</span
+      >
+      <span class="pad-left">Actualizó: {{ poliza.updateUser }}</span>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="partidas-panel" style="width: 100%; height: 610px;">
+      <sx-poliza-partidas-table
+        #partidasGrid
+        [partidas]="poliza.partidas"
+        (totalesChanged)="onTotales($event)"
+        (doubleClick)="doubleClick($event)"
+        (reclasificar)="onReclasificar($event)"
+        (edit)="onEdit($event)"
+        (copy)="onCopy($event)"
+        (delete)="onDelete($event)"
+        (prorratear)="onProrratear($event)"
+        [manual]="poliza.manual"
+      ></sx-poliza-partidas-table>
+      <!-- <sx-agregar-polizadet [poliza]="poliza"></sx-agregar-polizadet> -->
+    </div>
+    <a
+      mat-fab
+      color="accent"
+      class="mat-fab-position-bottom-right z-3"
+      (click)="onInsert()"
+      *ngIf="poliza.manual"
+    >
+      <mat-icon>add</mat-icon>
+    </a>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <div layout>
+        <button mat-button type="button" (click)="cancel.emit(poliza)">
+          Cancelar
+        </button>
+        <!-- <button
+          mat-button
+          [disabled]="form.invalid || form.pristine"
+          *ngIf="!poliza.manual || !poliza.cierre"
+          (click)="onUpdate()"
+        >
+          <mat-icon>save</mat-icon> Actualizar
+        </button> -->
+        <button
+          mat-button
+          color="primary"
+          (click)="recalcular.emit(poliza)"
+          type="button"
+          *ngIf="!poliza.manual"
+        >
+          <mat-icon>loop</mat-icon> Recalcular
+        </button>
+
+        <button mat-button (click)="print.emit(poliza)" type="button">
+          <mat-icon>print</mat-icon> Imprimir
+        </button>
+
+        <button mat-button (click)="cerrar.emit(poliza)" color="primary">
+          <mat-icon>layers_clear</mat-icon> Cerrar
+        </button>
+
+        <button mat-button (click)="delete.emit(poliza)" color="warn">
+          <mat-icon>delete</mat-icon> Eliminar
+        </button>
+
+        <span
+          *ngIf="totales$ | async as t"
+          class="text-md"
+          layout
+          layout-align="center center"
+        >
+          <span flex> </span> <span> Debe: {{ t.debe | currency }} </span>
+          <span class="pad-left"> Haber: {{ t.haber | currency }} </span>
+          <span class="pad-left"> Cuadre: {{ t.cuadre | currency }} </span>
+          <span flex></span>
+        </span>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</form>

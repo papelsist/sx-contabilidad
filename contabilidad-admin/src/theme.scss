@@ -1,0 +1,73 @@
+@import '~@angular/material/theming';
+@import '~@covalent/core/theming/all-theme';
+
+// Define a custom typography config that overrides the font-family
+// or any typography level.
+$typography: mat-typography-config(
+  $font-family: 'Roboto, monospace',
+  $headline: mat-typography-level(32px, 48px, 700)
+);
+
+@include mat-core();
+// @include mat-core($typography); // $typography is an **optional** argument for the mat-core
+// $primary: mat-palette($mat-red, 700);
+// $accent:  mat-palette($mat-blue, 800, A100, A400);
+// $warn:    mat-palette($mat-red, 600);
+
+$primary: mat-palette($mat-pink, 800);
+$accent:  mat-palette($mat-blue-gray, 700);
+$warn:    mat-palette($mat-red, 600);
+// $primary: mat-palette($mat-indigo, 700);
+// $accent:  mat-palette($mat-pink, 800, A100, A400);
+// $warn:    mat-palette($mat-red, 600);
+
+$hoover:  mat-palette($mat-gray, 300, A300, A400);
+$active:  mat-palette($mat-gray, 600, A100, A400);
+
+$theme: mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+// @include covalent-theme($theme, $typography); // $typography is an **optional** argument for the
+@include covalent-theme($theme);
+
+$foreground: map-get($theme, foreground);
+$background: map-get($theme, background);
+
+// Active icon color in list nav
+mat-nav-list {
+  [mat-list-item].active {
+    mat-icon[matListAvatar] {
+      background-color: mat-color($accent);
+      color: mat-color($warn, default-contrast)
+    }
+    mat-icon[matListIcon] {
+      color: mat-color($accent);
+    }
+  }
+}
+// Mat Table row active color
+.mat-row.active {
+  background-color: mat-color($active);
+  .mat-cell {
+    color: mat-color($active, default-contrast)
+  }
+}
+
+.mat-row.suspendido {
+  // background-color: mat-color($accent);
+  .mat-cell {
+    color: mat-color($accent);
+
+  }
+}
+
+.mat-row {
+  position: relative; // For matRipple
+  &:hover:not(.active) {
+    background: mat-color($hoover);
+    .mat-cell {
+      color: mat-color($hoover, default-contrast)
+    }
+  }
+}
+

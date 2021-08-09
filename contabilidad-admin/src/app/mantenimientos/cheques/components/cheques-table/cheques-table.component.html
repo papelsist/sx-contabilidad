@@ -1,0 +1,87 @@
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombrte</th>
+    <td mat-cell *matCellDef="let req" class="cursor-pointer">{{req.nombre}}</td>
+  </ng-container>
+  <ng-container matColumnDef="folio">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Número</th>
+    <td mat-cell *matCellDef="let req" class="cursor-pointer">
+      {{req.folio}}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="cuentaNumero">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cuenta</th>
+    <td mat-cell *matCellDef="let req" class="cursor-pointer">
+      {{req.cuentaNumero}}
+
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="banco">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Banco</th>
+    <td mat-cell *matCellDef="let req" class="cursor-pointer">
+      {{req.banco}}
+
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="fecha">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+    <td mat-cell *matCellDef="let req">{{req.fecha | date: 'dd/MM/yyyy'}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="impreso">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Impreso</th>
+    <td mat-cell *matCellDef="let req">{{req.impresion | date: 'dd/MM/yyyy : HH:mm'}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="importe">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Importe</th>
+    <td mat-cell *matCellDef="let req">{{req.importe | currency}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="fechaTransito">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Transito</th>
+    <td mat-cell *matCellDef="let cheque">
+      <span class="cursor-pointer" (click)="cobrado.emit(cheque)">{{cheque.fechaTransito | date: 'dd/MM/yyyy'}}</span>
+      <mat-icon [inline]="true" (click)="cobrado.emit(cheque)" class="pad-left cursor-pointer">today</mat-icon>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="liberado">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Liberado</th>
+    <td mat-cell *matCellDef="let cheque">
+      <span>{{cheque.liberado | date: 'dd/MM/yyyy'}}</span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="entregado">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Entregado</th>
+    <td mat-cell *matCellDef="let cheque">
+      <span>{{cheque.entregado | date: 'dd/MM/yyyy'}}</span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="cobrado">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cobrado</th>
+    <td mat-cell *matCellDef="let cheque">
+      <span>{{cheque.fechaTransito | date: 'dd/MM/yyyy'}}</span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="comentario">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Comentario</th>
+    <td mat-cell *matCellDef="let cheque">
+      <ng-container *ngIf="cheque.cancelado">
+        <span class="tc-pink-700">
+          {{cheque.canceladoComentario}} ({{cheque.cancelado | date: 'dd/MM/yyyy'}})
+        </span>
+      </ng-container>
+    </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+  <tr mat-row *matRowDef="let req; columns: displayColumns" [ngClass]="{'active': req.selected}"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[20, 50, 100, 200]" showFirstLastButtons></mat-paginator>

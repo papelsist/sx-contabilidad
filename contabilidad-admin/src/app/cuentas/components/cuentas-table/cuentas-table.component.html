@@ -1,0 +1,77 @@
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+    <td mat-cell *matCellDef="let row" matTooltip="{{ row.id }}">
+      {{ row.id }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="clave">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cuenta</th>
+    <td mat-cell *matCellDef="let row">{{ row.clave }}</td>
+  </ng-container>
+  <ng-container matColumnDef="descripcion">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Descripción de la cuenta
+    </th>
+    <td mat-cell *matCellDef="let row">{{ row.descripcion }}</td>
+  </ng-container>
+  <ng-container matColumnDef="naturaleza">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Naturaleza</th>
+    <td mat-cell *matCellDef="let row">{{ row.naturaleza }}</td>
+  </ng-container>
+  <ng-container matColumnDef="tipo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+    <td mat-cell *matCellDef="let row">{{ row.tipo }}</td>
+  </ng-container>
+  <ng-container matColumnDef="subTipo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>SubTipo</th>
+    <td mat-cell *matCellDef="let row">{{ row.subTipo }}</td>
+  </ng-container>
+  <ng-container matColumnDef="nivel">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nivel</th>
+    <td mat-cell *matCellDef="let row">{{ row.nivel }}</td>
+  </ng-container>
+  <ng-container matColumnDef="detalle">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Detalle</th>
+    <td mat-cell *matCellDef="let row">
+      <mat-icon *ngIf="row.detalle" color="accent">check</mat-icon>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="deResultado">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Resultado</th>
+    <td mat-cell *matCellDef="let row">
+      <mat-icon *ngIf="row.deResultado" color="accent">check</mat-icon>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="cuentaSat">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>SAT</th>
+    <td mat-cell *matCellDef="let row">{{ row.cuentaSat.codigo }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="updateUser">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+    <td
+      mat-cell
+      *matCellDef="let row"
+      matTooltip="{{ row.lastUpdated | date: 'dd/MM/yyyy : HH:mm:ss' }}"
+    >
+      {{ row.updateUser }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayColumns"
+    class="cursor-pointer"
+    (click)="select.emit(row)"
+    [ngClass]="{ active: selected === row.id }"
+  ></tr>
+</table>
+
+<mat-paginator
+  [pageSizeOptions]="[10, 20, 100, 500, 1000, 3000, 5000]"
+  [pageSize]="20"
+  showFirstLastButtons
+></mat-paginator>

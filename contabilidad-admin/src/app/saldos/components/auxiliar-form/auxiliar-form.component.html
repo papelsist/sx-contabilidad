@@ -1,0 +1,48 @@
+<div class="auxiliar-form" [formGroup]="form">
+  <div class="cuentas">
+    <sx-cuenta-contable-field
+      class="fecha-inicial"
+      [detalle]="false"
+      placeholder="Cuenta Inicial"
+      formControlName="cuentaInicial"
+    ></sx-cuenta-contable-field>
+
+    <sx-cuenta-contable-field
+      class="cuenta-final"
+      [detalle]="false"
+      placeholder="Cuenta Final"
+      formControlName="cuentaFinal"
+    ></sx-cuenta-contable-field>
+  </div>
+  <div class="periodo">
+    <mat-form-field>
+      <input
+        matInput
+        [matDatepicker]="myDatepicker"
+        placeholder="Fecha inicial"
+        formControlName="fechaInicial"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="myDatepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        [matDatepicker]="myDatepicker2"
+        placeholder="Fecha final"
+        formControlName="fechaFinal"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="myDatepicker2"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="actions">
+    <button mat-button>Aplicar</button>
+  </div>
+</div>

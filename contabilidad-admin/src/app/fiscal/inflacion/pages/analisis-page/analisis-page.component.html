@@ -1,0 +1,36 @@
+<div layout="row" class="sumary-panel">
+  <div flex="5"></div>
+
+  <div flex layout="column">
+    <div layout layout-align="start center">
+      <h5 class="text-center">Créditos</h5>
+      <span flex></span>
+      <button mat-button mat-icon-button (click)="activosTable.exportData()">
+        <mat-icon color="primary" [fontIcon]="true">file_download</mat-icon>
+      </button>
+    </div>
+    <sx-sumary-table
+      #activosTable
+      tipo="ACTIVO"
+      label="CREDITOS"
+      [rows]="activosSumary"
+    ></sx-sumary-table>
+  </div>
+  <span flex></span>
+  <div flex>
+    <div layout layout-align="start center">
+      <h5 class="text-center">Deudas</h5>
+      <span flex></span>
+      <button mat-button mat-icon-button (click)="pasivosTable.exportData()">
+        <mat-icon color="primary" [fontIcon]="true">file_download</mat-icon>
+      </button>
+    </div>
+    <sx-sumary-table
+      #pasivosTable
+      tipo="PASIVO"
+      label="Deudas"
+      [rows]="pasivosSumary"
+    ></sx-sumary-table>
+  </div>
+  <div flex="5"></div>
+</div>

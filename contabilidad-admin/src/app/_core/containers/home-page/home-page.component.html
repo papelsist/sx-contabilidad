@@ -1,0 +1,30 @@
+<td-layout-nav navigationRoute="/" color="primary">
+
+  <div td-toolbar-content layout="row" layout-align="start center" flex>
+
+    <button mat-icon-button td-menu-button tdLayoutToggle>
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <span [routerLink]="['/']" class="cursor-pointer">{{header$ | async}}</span>
+    <span flex></span>
+    <sx-logout-button></sx-logout-button>
+  </div>
+  <div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']" layout-align="center">
+    <div flex-gt-sm="50">
+      <mat-card flex *ngIf="application$ | async as application">
+        <img mat-card-image src="{{application.image}}" class="home-images">
+        <mat-card-title>{{application.name}}</mat-card-title>
+        <mat-card-subtitle>{{application.description}}</mat-card-subtitle>
+        <mat-card-content>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+
+  <td-layout-footer>
+    <sx-footer [session]="session$ | async"></sx-footer>
+  </td-layout-footer>
+
+</td-layout-nav>

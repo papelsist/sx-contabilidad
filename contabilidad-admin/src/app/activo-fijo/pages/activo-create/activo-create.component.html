@@ -1,0 +1,23 @@
+<ng-template
+  tdLoading
+  [tdLoadingUntil]="!(loading$ | async)"
+  tdLoadingStrategy="overlay"
+>
+  <mat-card>
+    <mat-card-title>
+      Alta de Activo Fijo
+    </mat-card-title>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <sx-activo-form #form (save)="onSave($event)"></sx-activo-form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="onBack()">
+        <mat-icon>arrow_back</mat-icon> Activos
+      </button>
+      <button mat-button [disabled]="!form.isValid()" (click)="form.submit()">
+        <mat-icon>save</mat-icon> SALVAR
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>

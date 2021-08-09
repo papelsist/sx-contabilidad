@@ -1,0 +1,93 @@
+<ng-template
+  tdLoading
+  [tdLoadingUntil]="!(loading$ | async)"
+  tdLoadingStrategy="overlay"
+>
+  <mat-card *ngIf="activo$ | async as activo">
+    <div layout class="header">
+      <span class="mat-title"> Activo: {{ activo.descripcion }} </span>
+      <span flex></span>
+      <span class="mat-title"> ID: {{ activo.id }}</span>
+    </div>
+    <div layout class="subheader">
+      <span flex> Monto Original: {{ activo.montoOriginal | currency }} </span>
+      <span flex *ngIf="activo.depreciacionInicial > 0">
+        Inicial: {{ activo.depreciacionInicial | currency }}
+      </span>
+      <ng-container>
+        <span flex>
+          Acumulada: {{ activo.depreciacionAcumulada | currency }}</span
+        >
+        <span flex>
+          Remanente:
+          {{ activo.remanente | currency }}</span
+        >
+      </ng-container>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <sx-activo-form
+        #form
+        [activo]="activo"
+        (update)="onUpdate($event)"
+        [depreciaciones]="depreciaciones$ | async"
+      >
+        <sx-depreciaciones-table
+          class="depreciaciones"
+          [depreciaciones]="depreciaciones$ | async"
+          (selectionChange)="onSelectionChange($event)"
+        ></sx-depreciaciones-table>
+        <sx-depreciacione-fiscal-table
+          class="fiscal"
+          [depreciaciones]="fiscales$ | async"
+          (selectionChange)="onFiscalSelection($event)"
+        >
+        </sx-depreciacione-fiscal-table>
+      </sx-activo-form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="onBack()">
+        <mat-icon>arrow_back</mat-icon> Activos
+      </button>
+      <button
+        mat-button
+        [disabled]="!form.isValid() || form.isPristine()"
+        (click)="form.submit()"
+      >
+        <mat-icon>save</mat-icon> Actualizar
+      </button>
+      <button mat-button (click)="onDelete(activo)" color="warn">
+        <mat-icon>delete</mat-icon> Eliminar
+      </button>
+      <!-- <button mat-button (click)="crearDepreciacion(activo)">
+        Ejecutar depreciación
+      </button>
+
+      <button
+        mat-button
+        [disabled]="selected.length === 0"
+        color="warn"
+        (click)="elimiarDepreciaciones()"
+      >
+        <mat-icon>do_not_disturb_alt</mat-icon> Quitar
+      </button>
+
+      <button
+        *ngIf="acumulada$ | async as acumulada"
+        mat-button
+        (click)="depreciacionFiscal(activo, acumulada)"
+      >
+        Depreciación Fiscal
+      </button>
+
+      <button
+        mat-button
+        [disabled]="selectedFiscales.length === 0"
+        color="warn"
+        (click)="elimiarDepreciacionesFiscales()"
+      >
+        <mat-icon>do_not_disturb_alt</mat-icon> Quitar Fiscal
+      </button> -->
+    </mat-card-actions>
+  </mat-card>
+</ng-template>

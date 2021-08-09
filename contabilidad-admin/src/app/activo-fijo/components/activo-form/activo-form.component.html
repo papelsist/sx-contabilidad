@@ -1,0 +1,181 @@
+<mat-tab-group
+  [formGroup]="form"
+  (selectedIndexChange)="onTabSelected($event)"
+  [selectedIndex]="tabIndex"
+>
+  <mat-tab label="Generales">
+    <div layout class="pad-top">
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="myDatepicker"
+          placeholder="Adquisición"
+          formControlName="adquisicion"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="myDatepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+      </mat-form-field>
+      <!-- <sx-af-estado [parent]="form" class="pad-left"></sx-af-estado> -->
+      <mat-form-field class="pad-left">
+        <input
+          matInput
+          placeholder="Gasto"
+          [disabled]="true"
+          [value]="gasto?.id"
+        />
+      </mat-form-field>
+
+      <button mat-icon-button>
+        <mat-icon matSuffix (click)="findGasto.emit('true')">search</mat-icon>
+      </button>
+    </div>
+    <div layout>
+      <sx-cuenta-contable-field
+        flex
+        placeholder="Cuenta contable"
+        formControlName="cuentaContable"
+      ></sx-cuenta-contable-field>
+    </div>
+
+    <div layout>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Monto Original"
+          formControlName="montoOriginal"
+          type="number"
+          autocomplete="off"
+        />
+        <mat-error>Monto invalido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Monto Original Fiscal"
+          formControlName="montoOriginalFiscal"
+          type="number"
+          autocomplete="off"
+        />
+        <mat-error>Monto invalido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="pad-left">
+        <input
+          matInput
+          placeholder="Tasa depreciacion"
+          formControlName="tasaDepreciacion"
+          type="number"
+          autocomplete="off"
+        />
+        <mat-error>Tasa incorrecta</mat-error>
+      </mat-form-field>
+      <mat-form-field class="pad-left">
+        <input
+          matInput
+          placeholder="Depreciación inicial"
+          formControlName="depreciacionInicial"
+          [readOnly]="true"
+        />
+      </mat-form-field>
+      <mat-form-field class="pad-left">
+        <input
+          matInput
+          placeholder="Depreciación acumulada"
+          [disabled]="true"
+          [value]="depreciacionAcumulada | currency"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="pad-left">
+        <input matInput placeholder="Remanente" [disabled]="true" />
+      </mat-form-field>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Factura">
+    <div layout class="pad-top">
+      <mat-form-field>
+        <input matInput placeholder="Serie" formControlName="facturaSerie" />
+      </mat-form-field>
+      <mat-form-field class="pad-left">
+        <input matInput placeholder="Folio" formControlName="facturaFolio" />
+      </mat-form-field>
+      <mat-form-field class="pad-left">
+        <input
+          matInput
+          [matDatepicker]="myDatepicker2"
+          placeholder="Fecha"
+          formControlName="facturaFecha"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="myDatepicker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div layout>
+      <mat-form-field flex>
+        <input matInput placeholder="UUID" formControlName="uuid" />
+      </mat-form-field>
+      <sx-proveedor-field
+        tipo="GASTOS"
+        class="pad-left"
+        flex
+        formControlName="proveedor"
+      ></sx-proveedor-field>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Descripción">
+    <div layout class="pad-top">
+      <mat-form-field flex="50">
+        <input
+          matInput
+          formControlName="descripcion"
+          placeholder="Descripción"
+        />
+      </mat-form-field>
+      <mat-form-field flex class="pad-left">
+        <input matInput formControlName="serie" placeholder="Serie" />
+      </mat-form-field>
+      <mat-form-field flex class="pad-left">
+        <input matInput formControlName="modelo" placeholder="Modelo" />
+      </mat-form-field>
+    </div>
+    <div layout>
+      <sx-af-sucursal
+        flex
+        [parent]="form"
+        propertyName="sucursalOrigen"
+        placeholder="Sucursal origen"
+      >
+      </sx-af-sucursal>
+      <sx-af-sucursal
+        flex
+        class="pad-left"
+        [parent]="form"
+        propertyName="sucursalActual"
+        placeholder="Sucursal actual"
+      >
+      </sx-af-sucursal>
+      <sx-upper-case-field
+        flex
+        class="pad-left"
+        formControlName="departamentoOrigen"
+        placeholder="Departamento"
+      ></sx-upper-case-field>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Depreciaciones" *ngIf="activo">
+    <ng-content select=".depreciaciones"></ng-content>
+  </mat-tab>
+  <mat-tab label="Fiscal" *ngIf="activo">
+    <ng-content select=".fiscal"></ng-content>
+  </mat-tab>
+</mat-tab-group>

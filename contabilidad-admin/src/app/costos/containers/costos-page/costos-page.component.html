@@ -1,0 +1,123 @@
+<td-layout-nav-list #navList [opened]="media.registerQuery('gt-sm') | async" [mode]="(media.registerQuery('gt-sm') | async) ? 'side' : 'over'"
+  [sidenavWidth]="(media.registerQuery('gt-xs') | async) ? '275px' : '100%'">
+  <div td-sidenav-toolbar-content layout="row" layout-align="start center">
+    <button mat-icon-button tdLayoutToggle>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span [routerLink]="['/']" class="cursor-pointer">SX-Contabilidad</span>
+  </div>
+  <div td-toolbar-content layout="row" layout-align="start center" flex>
+    <button mat-icon-button tdLayoutNavListOpen [hideWhenOpened]="true">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span flex></span>
+    <span tdLayoutNavListToggle class="cursor-pointer">Costos</span>
+    <span flex></span>
+    <sx-logout-button></sx-logout-button>
+  </div>
+  <mat-nav-list dense td-sidenav-content [tdLayoutNavListClose]="!media.query('gt-sm')">
+    <ng-template let-item let-last="last" ngFor [ngForOf]="navmenu">
+      <a mat-list-item [routerLink]="[item.route]" routerLinkActive="active">
+        <mat-icon matListAvatar>{{item.icon}}</mat-icon>
+        <h3 matLine> {{item.title}} </h3>
+        <p matLine> {{item.description}} </p>
+      </a>
+      <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+    </ng-template>
+
+
+    <h3 matSubheader>Reportes</h3>
+    <ng-container *ngIf="periodo$ | async as periodo">
+      <a mat-list-item (click)="calculoDeCostoPromedio()">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine> Calculo de costo </h3>
+      </a>
+      <mat-divider inset></mat-divider>
+      <a mat-list-item (click)="inventarioCosteado()">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine> Inventario costeado</h3>
+      </a>
+      <mat-divider inset></mat-divider>
+
+      <a mat-list-item (click)="movimientosCosteados(periodo)">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine> Movimientos costeados</h3>
+      </a>
+      <mat-divider inset></mat-divider>
+
+      <a mat-list-item (click)="comsSinAnalizar(periodo)">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine> COMS sin analizar</h3>
+      </a>
+      <mat-divider inset></mat-divider>
+
+      <a mat-list-item (click)="analisisDevoluciones()">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine>Análisis de Devoluciones</h3>
+      </a>
+      <mat-divider></mat-divider>
+  
+      <a mat-list-item (click)="analisisTransformaciones()">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine>Análisis de Transformaciones</h3>
+      </a>
+      <mat-divider></mat-divider>
+
+      <a mat-list-item (click)="kardex(periodo)">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine> Kardex </h3>
+      </a>
+      <mat-divider inset></mat-divider>
+
+      <a mat-list-item (click)="mercanciaTransito(periodo)">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine> Mercancía en transito </h3>
+        <p matLine> Análisis de mercancía </p>
+        <p matLine> en tránsito </p>
+      </a>
+      <mat-divider inset></mat-divider>
+
+      <a mat-list-item (click)="facturasAnalizadas()">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine> Fac analizadas </h3>
+        <p matLine> Analizadas por proveedor </p>
+      </a>
+      <mat-divider inset></mat-divider>
+
+      <a mat-list-item (click)="movsCosteadosDocto()">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine> Movs costeados </h3>
+        <p matLine> Movimientos (De documento) </p>
+      </a>
+      <mat-divider inset></mat-divider>
+
+      <a mat-list-item (click)="movsCosteadosDet()">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine> Movs costeados Det </h3>
+        <p matLine> Movimientos por documento </p>
+      </a>
+      <mat-divider inset></mat-divider>
+
+      <a mat-list-item (click)="ventasDiarias(periodo)">
+        <mat-icon matListAvatar>picture_as_pdf</mat-icon>
+        <h3 matLine> Ventas diarias </h3>
+      </a>
+      <mat-divider inset></mat-divider>
+
+    </ng-container>
+
+  </mat-nav-list>
+
+
+  <ng-template tdLoading [tdLoadingUntil]="!(loading$ | async)" tdLoadingStrategy="overlay">
+    <div class="document-panel">
+      <router-outlet></router-outlet>
+    </div>
+  </ng-template>
+
+
+
+  <td-layout-footer>
+    <sx-footer></sx-footer>
+  </td-layout-footer>
+</td-layout-nav-list>

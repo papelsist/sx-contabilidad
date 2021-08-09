@@ -1,0 +1,104 @@
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="clave">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Clave</th>
+    <td mat-cell *matCellDef="let costop">{{ costop.clave }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="costoInicial">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Inicial ($)</th>
+    <td mat-cell *matCellDef="let costop">
+      {{ costop.costoInicial | number: '1.2-2' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="saldoInicial">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Inicial (U)</th>
+    <td mat-cell *matCellDef="let costop">
+      {{ costop.saldoInicial | number: '1.3-3' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="saldo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Final (U)</th>
+    <td mat-cell *matCellDef="let costop">
+      {{ costop.saldo | number: '1.3-3' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="inicialMovs">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Ini + Movs (U)</th>
+    <td mat-cell *matCellDef="let costop">
+      {{ getInicialMovs(costop) | number: '1.3-3' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="diferencia">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dif (U)</th>
+    <td mat-cell *matCellDef="let costop">
+      {{ getDiferencia(costop) | number: '1.3-3' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="costop">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Costo P.</th>
+    <td mat-cell *matCellDef="let costop">
+      {{ costop.costop }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="costoCalculado">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Costo (calc)</th>
+    <td mat-cell *matCellDef="let costop">
+      {{ getCostoCalculado(costop) | number: '1.2-2' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="difCosto">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dif (Costo)</th>
+    <td mat-cell *matCellDef="let costop">
+      {{ getDifCosto(costop) | number: '1.2-2' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="costoInventario">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Costo (INV)</th>
+    <td mat-cell *matCellDef="let costop">
+      {{ costop.costo | number: '1.2-2' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="costoCalculadoInv">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Costo calc (INV)</th>
+    <td mat-cell *matCellDef="let costop">
+      {{ getCostoCalculadoInv(costop) | number: '1.2-2' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="difCostoInv">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dif (Costo INV)</th>
+    <td mat-cell *matCellDef="let costop">
+      {{ getDifCostoInv(costop) | number: '1.2-2' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="deLinea">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>E</th>
+    <td mat-cell *matCellDef="let costop">{{ costop.deLinea ? '' : 'E' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="descripcion">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Producto</th>
+    <td mat-cell *matCellDef="let costop">{{ costop.descripcion }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let costop; columns: displayColumns"
+    class="cursor-pointer"
+    (click)="select.emit(costop)"
+    [ngClass]="{ active: costop.clave === selectedId }"
+  ></tr>
+</table>
+
+<!-- <mat-paginator [pageSizeOptions]="[ 10, 20, 50, 100, 200]" showFirstLastButtons></mat-paginator> -->

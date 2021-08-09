@@ -1,0 +1,34 @@
+<mat-card>
+  <sx-search-title
+    title="DIOT Declaracion informativa de operaciones con terceros"
+    *ngIf="periodo"
+  >
+    <button mat-menu-item class="actions" (click)="reload(periodo)">
+      <mat-icon>refresh</mat-icon> RE CARGAR
+    </button>
+    <button mat-menu-item class="actions" (click)="onGenerar(periodo)">
+      <mat-icon>settings</mat-icon> GENERAR
+    </button>
+    <button mat-menu-item class="actions" (click)="onGenerarArchivo(periodo)">
+      <mat-icon>play_for_work</mat-icon> LAYOUT
+    </button>
+    <button
+      class="actions"
+      mat-menu-item
+      (click)="grid.exportData()"
+      matTooltip="Exportar a CSV"
+    >
+      <mat-icon color="primary">file_download</mat-icon> DESCARGAR
+    </button>
+  </sx-search-title>
+  <mat-divider></mat-divider>
+  <ng-template
+    tdLoading
+    [tdLoadingUntil]="!(loading$ | async)"
+    tdLoadingStrategy="overlay"
+  >
+  </ng-template>
+  <div class="grid-panel" flex>
+    <sx-diot-table [partidas]="diot$ | async" #grid></sx-diot-table>
+  </div>
+</mat-card>

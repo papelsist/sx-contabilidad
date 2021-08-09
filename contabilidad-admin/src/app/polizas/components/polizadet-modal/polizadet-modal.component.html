@@ -1,0 +1,105 @@
+<form [formGroup]="form" novalidate (ngSubmit)="doAccept()">
+  <div *ngIf="polizadet">
+    <h4 mat-dialog-title>Cuenta: {{ polizadet.clave }}</h4>
+    <p>
+      {{ polizadet.concepto }}
+    </p>
+  </div>
+  <div *ngIf="!polizadet">
+    <h4>Alta de partida</h4>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-dialog-content>
+    <div layout="column" class="selector-form">
+      <sx-cuenta-contable-field
+        placeholder="Cuenta"
+        [detalle]="true"
+        formControlName="cuenta"
+      >
+      </sx-cuenta-contable-field>
+    </div>
+    <div layout>
+      <mat-form-field flex>
+        <input
+          matInput
+          placeholder="debe"
+          autocomplete="off"
+          type="number"
+          formControlName="debe"
+        />
+      </mat-form-field>
+      <mat-form-field flex class="pad-left">
+        <input
+          matInput
+          placeholder="haber"
+          autocomplete="off"
+          type="number"
+          formControlName="haber"
+        />
+      </mat-form-field>
+    </div>
+    <div layout>
+      <mat-form-field flex>
+        <input
+          matInput
+          placeholder="Descripción"
+          formControlName="descripcion"
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+    <div layout>
+      <mat-form-field flex>
+        <input
+          matInput
+          placeholder="Asiento"
+          formControlName="asiento"
+          autocomplete="off"
+        />
+      </mat-form-field>
+      <mat-form-field flex class="pad-left">
+        <input
+          matInput
+          placeholder="Sucursal"
+          formControlName="sucursal"
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+    <div layout>
+      <mat-form-field flex>
+        <input
+          matInput
+          placeholder="Referencia"
+          formControlName="referencia"
+          autocomplete="off"
+        />
+      </mat-form-field>
+      <mat-form-field flex class="pad-left">
+        <input
+          matInput
+          placeholder="Referencia 2"
+          formControlName="referencia2"
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+    <div layout>
+      <mat-form-field flex>
+        <input
+          matInput
+          placeholder="UUID"
+          formControlName="uuid"
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button class="accent" type="submit" [disabled]="form.invalid">
+      Aceptar
+    </button>
+    <button mat-button type="button" (click)="close()">Cancelar</button>
+  </mat-dialog-actions>
+</form>

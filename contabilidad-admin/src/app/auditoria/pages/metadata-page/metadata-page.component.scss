@@ -1,0 +1,12 @@
+mat-card {
+  height: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-panel {
+  margin: 10px 0;
+  height: 100%;
+  flex-grow: 1;
+  overflow: auto;
+}

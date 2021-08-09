@@ -1,0 +1,14 @@
+<div layout>
+  <div flex layout="column" class="pad">
+    <div>
+      <h5>ACTIVOS</h5>
+    </div>
+    <sx-conceptos-table [rows]="activos$ | async"></sx-conceptos-table>
+  </div>
+  <div flex layout="column" class="pad">
+    <div>
+      <h5>PASIVOS</h5>
+    </div>
+    <sx-conceptos-table [rows]="pasivos$ | async"></sx-conceptos-table>
+  </div>
+</div>

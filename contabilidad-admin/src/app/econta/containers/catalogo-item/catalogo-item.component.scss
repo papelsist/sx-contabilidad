@@ -1,0 +1,42 @@
+.mat-card {
+  width: calc(100% - 15px);
+  height: calc(100% - 15px);
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px 10px;
+  h2 {
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.partidas {
+  flex: 1 0 auto;
+}
+
+.info-panel {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+  margin-top: -10px;
+  span {
+    padding-left: 10px;
+  }
+  mat-label {
+    padding-left: 10px;
+    font-weight: bold;
+  }
+  .totales {
+    flex: 1 0 auto;
+    text-align: end;
+  }
+}

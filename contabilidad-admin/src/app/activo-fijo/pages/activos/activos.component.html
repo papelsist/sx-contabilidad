@@ -1,0 +1,64 @@
+<mat-card>
+  <ng-template
+    tdLoading
+    [tdLoadingUntil]="!(loading$ | async)"
+    tdLoadingStrategy="overlay"
+  >
+    <sx-search-title title="Registro de activos">
+      <button class="actions" mat-menu-item (click)="onCreate()">
+        <mat-icon>add</mat-icon> Alta
+      </button>
+      <button class="actions" mat-menu-item (click)="reload()">
+        <mat-icon>refresh</mat-icon> Recargar
+      </button>
+      <button class="actions" mat-menu-item (click)="importarPendientes()">
+        <mat-icon>system_update_alt</mat-icon> Importar pendientes
+      </button>
+      <button class="actions" mat-menu-item (click)="generarDepreciacion()">
+        <mat-icon>system_update</mat-icon> Generar depreciacion
+      </button>
+      <button
+        class="actions"
+        mat-menu-item
+        (click)="generarDepreciacionFiscal()"
+      >
+        <mat-icon>launch</mat-icon> Generar depreciacion Fiscal
+      </button>
+      <button
+        class="actions"
+        mat-menu-item
+        (click)="asignarInpcUso()"
+        [disabled]="selected.length === 0"
+      >
+        <mat-icon>perm_data_setting</mat-icon> Asignar INPC Uso
+      </button>
+      <button
+        class="actions"
+        mat-menu-item
+        [disabled]="selected.length === 0 || selected[0].estado === 'BAJA'"
+        matTooltip="Dar de baja activo"
+        (click)="onBaja(selected[0])"
+        color="warn"
+      >
+        <mat-icon color="warn"></mat-icon> Baja de activo
+      </button>
+      <button
+        class="actions"
+        mat-menu-item
+        (click)="grid.exportData()"
+        matTooltip="Descargar registros en formato CSV"
+      >
+        <mat-icon color="primary">file_download</mat-icon> Descargar
+      </button>
+    </sx-search-title>
+  </ng-template>
+  <mat-divider></mat-divider>
+  <div class="grid-panel">
+    <sx-activos-table
+      #grid
+      [activos]="activos$ | async"
+      (select)="onSelect($event)"
+      (selectionChange)="onSelection($event)"
+    ></sx-activos-table>
+  </div>
+</mat-card>

@@ -1,0 +1,60 @@
+<div layout="column">
+  <mat-card flex>
+    <div layout layout-align="start center" class="pad">
+      <span class="push-left-sm">
+        <span class="mat-title">Auixiliar de BANCOS</span>
+      </span>
+      <span flex></span>
+      <span class="info" *ngIf="totales">
+        <span>Inicial: {{ totales.saldoInicial | currency }}</span>
+        <span class="pad-left">Debe: {{ totales.debe | currency }}</span>
+        <span class="pad-left">Haber: {{ totales.haber | currency }}</span>
+        <span class="pad-left">Final: {{ totales.saldoFinal | currency }}</span>
+      </span>
+      <span flex></span>
+      <button
+        mat-button
+        mat-icon-button
+        matTooltip="Genera auxiliar de bancos"
+        (click)="generar()"
+      >
+        <mat-icon color="accent">play_for_work</mat-icon>
+      </button>
+      <button
+        mat-button
+        mat-icon-button
+        (click)="grid.exportData()"
+        matTooltip="Exportar a CSV"
+      >
+        <mat-icon color="primary">file_download</mat-icon>
+      </button>
+
+      <span>
+        <button mat-icon-button [matMenuTriggerFor]="toolbarMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #toolbarMenu="matMenu">
+          <button mat-menu-item class="actions" (click)="reload()">
+            <mat-icon>refresh</mat-icon> Recargar
+          </button>
+          <button mat-menu-item class="actuibs" (click)="printAuxiliar()">
+            <mat-icon>print</mat-icon> Imprimir
+          </button>
+        </mat-menu>
+      </span>
+    </div>
+    <mat-divider></mat-divider>
+    <ng-template
+      tdLoading
+      [tdLoadingUntil]="!(loading$ | async)"
+      tdLoadingStrategy="overlay"
+    >
+    </ng-template>
+    <div class="movimientos-panel">
+      <sx-auxiliar-table
+        [partidas]="movimientos$ | async"
+        #grid
+      ></sx-auxiliar-table>
+    </div>
+  </mat-card>
+</div>

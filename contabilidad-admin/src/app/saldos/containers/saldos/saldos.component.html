@@ -1,0 +1,104 @@
+<div layout="column">
+  <mat-card flex>
+    <div layout layout-align="start center" class="pad">
+      <span class="push-left-sm">
+        <span class="mat-title">SALDOS POR CUENTA</span>
+      </span>
+      <span flex></span>
+      <span class="info" *ngIf="totales">
+        <span>Inicial: {{ totales.saldoInicial | currency }}</span>
+        <span class="pad-left">Debe: {{ totales.debe | currency }}</span>
+        <span class="pad-left">Haber: {{ totales.haber | currency }}</span>
+        <span class="pad-left">Final: {{ totales.saldoFinal | currency }}</span>
+      </span>
+      <span flex></span>
+      <button
+        mat-button
+        mat-icon-button
+        (click)="grid.exportData()"
+        matTooltip="Exportar a CSV"
+      >
+        <mat-icon color="primary">file_download</mat-icon>
+      </button>
+
+      <span>
+        <button mat-icon-button [matMenuTriggerFor]="toolbarMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #toolbarMenu="matMenu">
+          <button mat-menu-item class="actions" (click)="reload()">
+            <mat-icon>refresh</mat-icon> Recargar
+          </button>
+          <button mat-menu-item class="actuibs" (click)="printAuxiliar()">
+            <mat-icon>print</mat-icon> Auxiliar contables
+          </button>
+          <a
+            mat-menu-item
+            color="accent"
+            class="actions"
+            (click)="onActualizar()"
+          >
+            <mat-icon>add</mat-icon> Actualizar saldos
+          </a>
+          <a mat-menu-item color="accent" class="actions" (click)="onCierre()">
+            <mat-icon>fast_forward</mat-icon> Cierre mensual
+          </a>
+          <a
+            mat-menu-item
+            color="accent"
+            class="actions"
+            (click)="onPolizaDeCierre()"
+            *ngIf="filter.mes === 13"
+          >
+            <mat-icon>leak_remove</mat-icon> Poliza CIERRE ANUAL
+          </a>
+        </mat-menu>
+      </span>
+    </div>
+    <mat-divider></mat-divider>
+    <ng-template
+      tdLoading
+      [tdLoadingUntil]="!(loading$ | async)"
+      tdLoadingStrategy="overlay"
+    >
+    </ng-template>
+    <div class="saldos-panel">
+      <sx-saldos-table
+        [saldos]="saldos$ | async"
+        #grid
+        (totalesChanged)="onFilter($event)"
+        (drillData)="onDrill($event)"
+        (selectionChange)="onSelectionChanged($event)"
+      >
+      </sx-saldos-table>
+    </div>
+  </mat-card>
+
+  <!-- <mat-card flex class="movimientos-card">
+    <div layout class="pad-left pad-right">
+      <span class="mat-title">Movimientos</span>
+      <span flex></span>
+      <button
+        mat-button
+        mat-icon-button
+        (click)="movimientosGrid.exportData()"
+        matTooltip="Exportar a CSV"
+      >
+        <mat-icon color="primary">file_download</mat-icon>
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="movimientos-table">
+      <ng-template
+        tdLoading
+        [tdLoadingUntil]="!(movimientosLoading$ | async)"
+        tdLoadingStrategy="overlay"
+      >
+      </ng-template>
+      <sx-movimientos-table
+        #movimientosGrid
+        [partidas]="movimientos$ | async"
+      ></sx-movimientos-table>
+    </div>
+  </mat-card> -->
+</div>

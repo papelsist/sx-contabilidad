@@ -1,0 +1,15 @@
+
+<mat-card>
+  <sx-search-title title="Cheques registrados" (search)="search = $event">  
+  <sx-cheques-filter-btn class="options" [filter]="filter$ | async" (change)="onFilterChange($event)"></sx-cheques-filter-btn>
+  <button mat-menu-item class="actions" (click)="reload()"><mat-icon>refresh</mat-icon> Recargar</button>
+  </sx-search-title>
+  <mat-divider></mat-divider>
+  <sx-cheques-table [cheques]="cheques$ | async" [filter]="search"
+    (liberar)="onLiberar($event)" (entregar)="onEntregar($event)" (cobrado)="onCobro($event)">
+  </sx-cheques-table>
+  <mat-card-footer>
+    <sx-cheques-filter-label [filter]="filter$ | async"></sx-cheques-filter-label>
+  </mat-card-footer>
+</mat-card>
+

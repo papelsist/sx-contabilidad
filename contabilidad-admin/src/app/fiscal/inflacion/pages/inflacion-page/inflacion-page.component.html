@@ -1,0 +1,61 @@
+<mat-card>
+  <ng-template
+    tdLoading
+    [tdLoadingUntil]="!(loading$ | async)"
+    tdLoadingStrategy="overlay"
+  >
+  </ng-template>
+
+  <div
+    layout
+    layout-align="start center"
+    class="pad-left-sm pad-right-sm pad-top-sm"
+  >
+    <span class="mat-title"
+      >AJUSTE ANUAL POR INFLACION {{ periodo.ejercicio }}</span
+    >
+
+    <span flex></span>
+    <sx-ejercicio-mes-btn
+      [periodo]="periodo"
+      (change)="onPeriodoChange($event)"
+    ></sx-ejercicio-mes-btn>
+    <span>
+      <button mat-icon-button [matMenuTriggerFor]="toolbarMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #toolbarMenu="matMenu">
+        <button mat-menu-item (click)="load()">
+          <mat-icon>refresh</mat-icon> Cargar
+        </button>
+        <button mat-menu-item (click)="analisis.load()">
+          Re cargar resumen
+        </button>
+        <button mat-menu-item (click)="onGenerar(periodo)">
+          <mat-icon>settings</mat-icon> Generar
+        </button>
+        <button mat-menu-item><mat-icon></mat-icon> Recalcular</button>
+        <button mat-menu-item (click)="grid.exportData()">
+          <mat-icon color="primary" [fontIcon]="true">file_download</mat-icon>
+          Descargar
+        </button>
+      </mat-menu>
+    </span>
+  </div>
+
+  <div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <mat-tab-group>
+    <mat-tab label="Activos / Pasivos">
+      <sx-ajustes-table #grid [rows]="ajustes$ | async"></sx-ajustes-table>
+    </mat-tab>
+    <mat-tab label="Análisis">
+      <sx-analisis-page #analisis></sx-analisis-page>
+    </mat-tab>
+    <mat-tab label="Conceptos">
+      <sx-conceptos-page></sx-conceptos-page>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

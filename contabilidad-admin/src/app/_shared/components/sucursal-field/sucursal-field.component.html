@@ -1,0 +1,14 @@
+<ng-container [formGroup]="parent">
+  <mat-form-field [style.width.%]="100">
+    <mat-select
+      [placeholder]="placeholder"
+      [formControlName]="sucursalProperty"
+      class="sucursal-field"
+    >
+      <mat-option value="%">Todas</mat-option>
+      <mat-option *ngFor="let sucursal of sucursales" [value]="sucursal.id">
+        {{ sucursal.nombre }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-container>

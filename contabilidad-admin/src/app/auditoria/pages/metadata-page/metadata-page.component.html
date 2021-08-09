@@ -1,0 +1,37 @@
+<mat-card>
+  <ng-template
+    tdLoading
+    [tdLoadingUntil]="!(loading$ | async)"
+    tdLoadingStrategy="overlay"
+  >
+    <sx-search-title
+      title="Registros en el SAT"
+      [visible]="true"
+      *ngIf="filter$ | async as filter"
+    >
+      <sx-ejercicio-mes-btn
+        class="info"
+        [periodo]="filter$ | async"
+        (change)="onCambiarPeriodo($event)"
+      ></sx-ejercicio-mes-btn>
+      <button class="actions" mat-menu-item (click)="reload(filter)">
+        <mat-icon>refresh</mat-icon> Recargar
+      </button>
+      <button class="actions" mat-menu-item (click)="importarMetadata(filter)">
+        <mat-icon>system_update_alt</mat-icon> Importar Archivo del SAT
+      </button>
+      <button
+        class="actions"
+        mat-menu-item
+        (click)="grid.exportData()"
+        matTooltip="Descargar registros en formato CSV"
+      >
+        <mat-icon color="primary">file_download</mat-icon> Descargar
+      </button>
+    </sx-search-title>
+  </ng-template>
+  <mat-divider></mat-divider>
+  <div class="grid-panel">
+    <sx-metadata-table #grid [data]="data$ | async"></sx-metadata-table>
+  </div>
+</mat-card>
